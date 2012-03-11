@@ -1,0 +1,3 @@
+This project aims to build a simple way to harvest logs from various servers and present them on one single central point via a easy to use web interface.
+
+We are using akka and play framework.
