@@ -1,0 +1,77 @@
+import sbt._
+import Keys._
+
+object Resolvers {
+// no private nexus for now 
+
+  val res = Seq(
+//    kestNexus
+  )
+}
+
+object BuildSettings {
+  import Resolvers._
+
+
+  val buildScalaVersion = "2.9.1"
+
+  val bsDefaults = Defaults.defaultSettings ++ Seq(
+    organization  := "org.kset",
+    version       := "0.0.1",
+    resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+  )
+
+  val bsServer = bsDefaults ++
+    Seq(name := "collective-server")
+
+  val bsHarvester = bsDefaults ++
+    Seq(name := "collective-harvester")
+}
+
+object Dependencies {
+
+  //akka
+  val akkaActor = "com.typesafe.akka" % "akka-actor" % "2.0-M3"
+  val akkaRemoteActor = "com.typesafe.akka" % "akka-remote" % "2.0-M3"
+
+
+
+  //standard
+  val commonsIo = "commons-io" % "commons-io" % "2.1"
+
+}
+
+object ChimeraBuild extends Build {
+  import BuildSettings._
+  import Dependencies._
+
+  val depsServer = Seq(
+    akkaActor,
+    akkaRemoteActor,
+    commonsIo
+  )
+
+  val depsHarvester = Seq(
+    akkaActor,
+    akkaRemoteActor,
+    commonsIo
+  )
+ 
+
+  lazy val server = Project(
+    "Server",
+    file("server"),
+    settings = bsServer ++ Seq(
+      libraryDependencies ++= depsServer
+    )
+  )
+
+  lazy val harvertser = Project(
+    "Harvester",
+    file("harvester"),
+    settings = bsHarvester ++ Seq(
+      libraryDependencies ++= depsHarvester
+    )
+  )
+
+}
