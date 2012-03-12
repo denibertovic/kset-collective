@@ -5,7 +5,8 @@ object Resolvers {
 // no private nexus for now 
 
   val res = Seq(
-//    kestNexus
+    "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
+    "ESCIDOC" at "https://www.escidoc.org/artifactory/repo"
   )
 }
 
@@ -18,7 +19,7 @@ object BuildSettings {
   val bsDefaults = Defaults.defaultSettings ++ Seq(
     organization  := "org.kset",
     version       := "0.0.1",
-    resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+    resolvers ++= res
   )
 
   val bsServer = bsDefaults ++
@@ -39,6 +40,9 @@ object Dependencies {
   //standard
   val commonsIo = "commons-io" % "commons-io" % "2.1"
 
+  //jnotify
+  val jnotify = "net.contentobjects.jnotify" % "jnotify" % "0.93"
+
 }
 
 object ChimeraBuild extends Build {
@@ -54,6 +58,7 @@ object ChimeraBuild extends Build {
   val depsHarvester = Seq(
     akkaActor,
     akkaRemoteActor,
+    jnotify,
     commonsIo
   )
  
