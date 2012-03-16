@@ -16,3 +16,5 @@ sbt-launch-*.jar
 *.orig
 *.swp
 *~
+
+scala/harvester/lib

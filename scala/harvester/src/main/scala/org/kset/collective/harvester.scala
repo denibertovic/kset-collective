@@ -1,11 +1,11 @@
-package learn
+package org.kset.collective.harvester
 
 import net.contentobjects.jnotify.{JNotifyListener, JNotify}
 
 object HelloWorld {
   def main(args: Array[String]) {
     // path to watch
-    val path = System.getProperty("user.home");
+    val path = "/tmp";
 
     // watch mask, specify events you care about,
     // or JNotify.FILE_ANY for all events.
