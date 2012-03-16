@@ -72,7 +72,7 @@ object ChimeraBuild extends Build {
 
   lazy val harvester = Project(
     "Harvester",
-    file("harvester/src/main"),
+    file("harvester"),
     settings = bsHarvester ++ Seq(
       libraryDependencies ++= depsHarvester
 //      fork in run := true,

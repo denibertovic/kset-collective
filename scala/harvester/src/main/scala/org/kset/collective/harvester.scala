@@ -5,7 +5,7 @@ import net.contentobjects.jnotify.{JNotifyListener, JNotify}
 object HelloWorld {
   def main(args: Array[String]) {
     // path to watch
-    val path = "/tmp";
+    val path = "/home/tm/new_file";
 
     // watch mask, specify events you care about,
     // or JNotify.FILE_ANY for all events.
