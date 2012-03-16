@@ -20,6 +20,7 @@ object BuildSettings {
     organization  := "org.kset",
     version       := "0.0.1",
     resolvers ++= res
+
   )
 
   val bsServer = bsDefaults ++
@@ -32,10 +33,8 @@ object BuildSettings {
 object Dependencies {
 
   //akka
-  val akkaActor = "com.typesafe.akka" % "akka-actor" % "2.0-M3"
-  val akkaRemoteActor = "com.typesafe.akka" % "akka-remote" % "2.0-M3"
-
-
+  val akkaActor = "com.typesafe.akka" % "akka-actor" % "2.0"
+  val akkaRemoteActor = "com.typesafe.akka" % "akka-remote" % "2.0"
 
   //standard
   val commonsIo = "commons-io" % "commons-io" % "2.1"
@@ -76,6 +75,8 @@ object ChimeraBuild extends Build {
     file("harvester/src/main"),
     settings = bsHarvester ++ Seq(
       libraryDependencies ++= depsHarvester
+//      fork in run := true,
+ //     javaOptions in run += "-Djava.library.path=lib_managed/libjnotify.so"
     )
   )
 
