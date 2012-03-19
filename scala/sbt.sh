@@ -5,21 +5,6 @@ cd `dirname $0`
 JVM_PARAMS="-Xss2m -Xmx712m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled"
 
 
-## use correct jnotify lib
-java -version 2> /tmp/jvmversion
-
-JVM_VERSION=`grep "64-Bit" /tmp/jvmversion`
-
-if [ "$JVM_VERSION" = 1 ]; then
-  echo "Detected 32Bit JVM. Using libjnotify 32 bit "
-  cp shared/lib/libjnotify.so harvester/lib/libjnotify.so
-else
-  echo "Detected 64Bit JVM. Using libjnotify 64 bit"
-  cp shared/lib/libjnotify_64bit.so harvester/lib/libjnotify.so
-fi
-
-##
-
 ## Default parameters
 LIFT_RUN_MODE="-Drun.mode=development"
 TRY_JREBEL=true

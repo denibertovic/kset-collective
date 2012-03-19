@@ -74,9 +74,8 @@ object ChimeraBuild extends Build {
     "Harvester",
     file("harvester"),
     settings = bsHarvester ++ Seq(
-      libraryDependencies ++= depsHarvester
-//      fork in run := true,
- //     javaOptions in run += "-Djava.library.path=lib_managed/libjnotify.so"
+      libraryDependencies ++= depsHarvester,
+      unmanagedJars in Compile <++= (baseDirectory).map{ bd => (bd / "lib" / System.getProperty("sun.arch.data.model") ** "*").get } 
     )
   )
 
