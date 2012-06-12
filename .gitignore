@@ -17,3 +17,5 @@ sbt-launch-*.jar
 *.swp
 *~
 
+test/
+
