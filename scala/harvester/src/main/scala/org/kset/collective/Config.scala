@@ -11,10 +11,7 @@ object HarvesterConfig {
  val fileConfigList = config.getObject("harvester.files")
  val fit = fileConfiList.entrySet.iterator
  val files = for(f <- fit) yield f.unwrapped
- val folders = for(file <- files) yield {
-   filesplit = file.split("/")
-   filesplit.take(filesplit.length - 1).reduceLeft(_+"/"+_)
- } toSet
+ val folders = files.map(_.replaceFirst("/[^/]+$", "")).toSet
 
 }
 
