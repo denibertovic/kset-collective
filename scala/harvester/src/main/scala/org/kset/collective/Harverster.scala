@@ -5,29 +5,38 @@ import java.io._
 import akka.actor._
 import akka.routing._
 
-import scala.collection.mutable.HashMap
-import scala.collection.mutable.HashSet
 import scala.math._
+
+import com.typesafe.config._
 
 
 object Harvester extends App {
+  
   sealed trait HarvesterMessage
+
   case object StartMaster extends HarvesterMessage
   case object StopMaster extends HarvesterMessage
-  case class StartWatch(watcheeFolder: String, watcheeFileList: HashSet[String]) extends HarvesterMessage
+  
+  case class StartWatch(watchFolder: String) extends HarvesterMessage
   case class StopWatch(watchID: Int) extends HarvesterMessage
 
+
+  val config = ConfigFactory.load("harvester")
+  val files = config.getObject("harvester.files")
+
+  // ajma chargin ma lazaaaa
   start
 
   class MasterActor extends Actor {
-    val folders: Array[String] = Array("/home/tmarice/programming/kset/kset-collective/test")
-    val watchList = new HashMap[String, HashSet[String]]
-    watchList += "/home/tmarice/programming/kset/kset-collective/test/" -> HashSet("file1.log", "file2.log")
+    //val folders = files.entrySet.iterator
+    import HarveserSettings
 
+    val watchList = HarvesterSettings.files
+    val watchFolders = HarvesterSettings.folders
     def start = {
-      val router = context.actorOf(Props[Watcher].withRouter(RoundRobinRouter(folders.size)), "watcher")
-      for (watchPair <- watchList) {
-        router ! StartWatch(watchPair._1, watchPair._2); 
+      val router = context.actorOf(Props[Watcher].withRouter(RoundRobinRouter(32)), "watcher")
+      for (watched <- watchList) {
+        router ! StartWatch(watched.split("/").take(watched.split("/").length - 1).reduceLeft(_+"/"+_)); 
       }
     }
 

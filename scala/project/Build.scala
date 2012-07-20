@@ -42,6 +42,9 @@ object Dependencies {
   //jnotify
   val jnotify = "net.contentobjects.jnotify" % "jnotify" % "0.93"
 
+  //config
+  val typesafeconfig = "com.typesafe" % "config" % "0.5.0"
+
 }
 
 object ChimeraBuild extends Build {
@@ -55,6 +58,7 @@ object ChimeraBuild extends Build {
   )
 
   val depsHarvester = Seq(
+    typesafeconfig,
     akkaActor,
     akkaRemoteActor,
     jnotify,
